@@ -1,0 +1,144 @@
+﻿@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/themes/default/easyui.css")
+    @Styles.Render("~/Content/themes/icon.css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    @Scripts.Render("~/Scripts/jquery.easyui-1.4.5.js")
+    @Scripts.Render("~/Scripts/locale/easyui-lang-zh_CN.js")
+    @Scripts.Render("~/Scripts/locale/jquery.unobtrusive-ajax.js")
+
+</head>
+<body>
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <div data-options="region:'north'" style="height:60px;border-width:0px;background-color:lavender">
+            <span style="font-size:x-large">设备信息管理系统</span>
+        </div>
+        <div data-options="region:'south',split:true" style="height:25px;font-family:'Microsoft YaHei UI';vertical-align:central;background-color:#ACD6FF;color:dimgray">
+            本软件系统著作权归Richard.Hu所有  Copyright @{
+                if (DateTime.Now.Year <= 2017)
+                {
+                    <span>2017</span>
+                }
+                else
+                {
+                    <span>2017-@DateTime.Now.Year</span>
+                }
+            }
+        </div>
+        <div data-options="region:'west',split:true" title="菜单选项" style="width:200px;">
+
+            <div class="easyui-accordion" style="width:100%;height:100%;">
+                <div title="我的账户" style="overflow:auto;padding:10px;">
+                    <p>测试消息</p>
+                </div>
+                <div title="菜单一" style="padding:10px;">
+                    <p>The accordion allows you to provide multiple panels and display one or more at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>
+                </div>
+                <div title="菜单二" style="padding:10px;"></div>
+                <div title="基础设置" style="padding:10px;"></div>
+                <div title="工作汇报" style="padding:10px;">
+                    <ul class="easyui-tree">
+                         <li><a onclick="addTab('Menu','WorkWeek','每周工作汇报')">每周工作汇报</a></li>
+                         <li><a onclick="addTab('Menu','WorkMonth','每月工作汇报')">每月工作汇报</a></li>
+                         <li><a onclick="addTab('Menu','TestMonth','每月量化考评')">每月量化考评</a></li>
+                    </ul>
+                </div>
+                <div title="开发中心" style="padding:10px;">
+                    <a id="button1" class="easyui-linkbutton">查看电梯</a>
+                </div>
+            </div>
+        </div>
+        <div data-options="region:'center',title:'功能显示块',iconCls:'icon-ok'">
+            <div id="TabsAll" class="easyui-tabs" style="width:100%;height:100%">
+                <div title="主界面" style="padding:30px">
+                    <div class="row" style="height:100%">
+                        <div class="col-md-6" style="margin:5px 0px">
+                            <div id="p1" class="easyui-panel" title="新闻资讯" style="width:100%;height:300px;padding:10px;"></div>
+                        </div>
+                        <div class="col-md-6" style="margin:5px 0px">
+                            <div id="p2" class="easyui-panel" title="消息中心" style="width:100%;height:300px;padding:10px;"></div>
+                        </div>
+                        <div class="col-md-6" style="margin:5px 0px">
+                            <div id="p3" class="easyui-panel" title="各种消息" style="width:100%;height:300px;padding:10px;"></div>
+                        </div>
+                        <div class="col-md-6" style="margin:5px 0px">
+                            <div id="p4" class="easyui-panel" title="备用显示" style="width:100%;height:300px;padding:10px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.messager.show({
+                title: 'My Title',
+                msg: '这是一条测试消息，什么情况',
+                showType: 'show'
+            });
+        });
+
+        function onloading() {
+            $("<div class=\"datagrid-mask\"></div>").css({ display: "block", width: "100%", height: $(window).height() }).appendTo("body");
+            $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("body").css({ display: "block", left: ($(document.body).outerWidth(true) - 190) / 2, top: ($(window).height() - 65) / 2 });
+        }
+        function removeload() {
+            $(".datagrid-mask").remove();
+            $(".datagrid-mask-msg").remove();
+        }  
+
+        function addTab(control, action, title) {
+            if ($('#TabsAll').tabs('exists', title)) {
+                $('#TabsAll').tabs('select', title);
+            } else {
+                $.ajax({
+                    url: '/' + control + '/' + action,
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    timeout: 5000,    //超时时间
+                    dataType: 'html',    //返回的数据格式：json/xml/html/script/jsonp/text
+
+                    beforeSend: function (xhr) {
+                        onloading();
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        $('#TabsAll').tabs('add', {
+                            title: title,
+                            content: data,
+                            closable: true
+                        });
+                        $('#TabsAll').tabs('select', title);
+                    },
+                    error: function (xhr, textStatus) {
+                        $.messager.alert('数据加载失败', '在数据加载中发生了异常！', 'error');
+                    },
+                    complete: function () {
+                        removeload();
+                    }
+                });
+            }
+        }
+
+    </script>
+
+
+</body>
+</html>
