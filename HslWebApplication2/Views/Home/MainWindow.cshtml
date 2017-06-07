@@ -45,18 +45,54 @@
 
             <div class="easyui-accordion" style="width:100%;height:100%;">
                 <div title="我的账户" style="overflow:auto;padding:10px;">
-                    <p>测试消息</p>
+                    <ul class="easyui-tree">
+                        <li><a onclick="addTab('Menu','WorkWeek','通讯录')">通讯录</a></li>
+                    </ul>
                 </div>
-                <div title="菜单一" style="padding:10px;">
-                    <p>The accordion allows you to provide multiple panels and display one or more at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>
+                <div title="项目管理" style="padding:10px;">
+                    <ul class="easyui-tree">
+                        <li><a onclick="addTab('Menu','WorkWeek','我参与的项目')">我参与的项目</a></li>
+                        <li>
+                            <span><a onclick="addTab('Menu','WorkWeek','部门项目')">部门项目</a></span>
+                            <ul>
+                                <li><a onclick="addTab('Menu','WorkWeek','研发一科')">研发一科</a></li>
+                                <li><a onclick="addTab('Menu','WorkWeek','研发二科')">研发二科</a></li>
+                                <li><a onclick="addTab('Menu','WorkWeek','研发三科')">研发三科</a></li>
+                                <li><a onclick="addTab('Menu','WorkWeek','工艺科')">工艺科</a></li>
+                                <li><a onclick="addTab('Menu','WorkWeek','品质科')">品质科</a></li>
+                            </ul>
+                        </li>
+                        <li><a onclick="addTab('Menu','WorkWeek','已完成项目检索')">已完成项目检索</a></li>
+                    </ul>
                 </div>
-                <div title="菜单二" style="padding:10px;"></div>
-                <div title="基础设置" style="padding:10px;"></div>
+                <div title="设备管理" style="padding:10px;">
+
+                </div>
+                <div title="特种设备管理" style="padding:10px;">
+                    <ul class="easyui-tree">
+                        <li><a onclick="addTab('Menu','WorkWeek','电梯')">电梯</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','起重机')">起重机</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','一般设备')">一般设备</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','压力容器')">压力容器</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','锅炉')">锅炉</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','管道')">管道</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','计量器具')">计量器具</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','仪器仪表')">仪器仪表</a></li>
+                    </ul>
+                </div>
                 <div title="工作汇报" style="padding:10px;">
                     <ul class="easyui-tree">
-                         <li><a onclick="addTab('Menu','WorkWeek','每周工作汇报')">每周工作汇报</a></li>
-                         <li><a onclick="addTab('Menu','WorkMonth','每月工作汇报')">每月工作汇报</a></li>
-                         <li><a onclick="addTab('Menu','TestMonth','每月量化考评')">每月量化考评</a></li>
+                        <li><a onclick="addTab('Menu','WorkWeek','每周工作汇报')">每周工作汇报</a></li>
+                        <li><a onclick="addTab('Menu','WorkMonth','每月工作汇报')">每月工作汇报</a></li>
+                        <li><a onclick="addTab('Menu','TestMonth','每月量化考评')">每月量化考评</a></li>
+                    </ul>
+                </div>
+                <div title="基础设置" style="padding:10px;">
+                    <ul class="easyui-tree">
+                        <li><a onclick="addTab('Menu','WorkWeek','用户管理')">用户管理</a></li>
+                        <li><a onclick="addTab('Menu','WorkMonth','组织机构管理')">组织机构管理</a></li>
+                        <li><a onclick="addTab('Menu','TestMonth','角色管理')">角色管理</a></li>
+                        <li><a onclick="addTab('Menu','TestMonth','功能管理')">功能管理</a></li>
                     </ul>
                 </div>
                 <div title="开发中心" style="padding:10px;">
@@ -114,6 +150,7 @@
                 $.ajax({
                     url: '/' + control + '/' + action,
                     type: 'POST', //GET
+                    data: { memo: title },
                     async: true,    //或false,是否异步
                     timeout: 5000,    //超时时间
                     dataType: 'html',    //返回的数据格式：json/xml/html/script/jsonp/text

@@ -1102,11 +1102,10 @@
             等待存储的日志的集合
             </summary>
         </member>
-        <member name="M:HslCommunication.BasicFramework.SoftLogHelper.WriteMessageToFile(System.String)">
+        <member name="P:HslCommunication.BasicFramework.SoftLogHelper.TimesOfWriteFile">
             <summary>
-            向文件中写入数据，文件路径必须存在
+            写入文件的次数
             </summary>
-            <param name="str">需要写入的数据</param>
         </member>
         <member name="M:HslCommunication.BasicFramework.SoftLogHelper.SaveNormal(System.String)">
             <summary>
@@ -1116,19 +1115,19 @@
         </member>
         <member name="M:HslCommunication.BasicFramework.SoftLogHelper.SaveInformation(System.String)">
             <summary>
-            用于内部保存日志内容的方法
+            用于保存信息级别日志内容的方法
             </summary>
             <param name="str"></param>
         </member>
         <member name="M:HslCommunication.BasicFramework.SoftLogHelper.SaveWarnning(System.String)">
             <summary>
-            用于内部保存日志内容的方法
+            用于保存警告级别日志内容的方法
             </summary>
             <param name="str"></param>
         </member>
         <member name="M:HslCommunication.BasicFramework.SoftLogHelper.SaveError(System.String)">
             <summary>
-            用于内部保存日志内容的方法
+            用于保存错误日志内容的方法
             </summary>
             <param name="str"></param>
         </member>
