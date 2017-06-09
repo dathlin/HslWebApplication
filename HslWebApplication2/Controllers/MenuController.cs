@@ -17,6 +17,24 @@ namespace HslWebApplication2.Controllers
          * 
          ***************************************************************************************/
 
+        #region 账户相关
+
+        [HttpPost]
+        public ActionResult GetContacts()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetContactsData()
+        {
+            return Content(Newtonsoft.Json.Linq.JArray.FromObject(Database.SoftAccount.GetAllList()).ToString());
+        }
+
+        #endregion
+
+
+
 
         #region 工作汇报相关界面
 

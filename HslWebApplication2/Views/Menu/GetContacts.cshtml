@@ -1,0 +1,76 @@
+﻿@{ 
+    Layout = null;
+}
+
+
+<div style="width:100%;height:100%;padding:5px">
+    <table id="dg" title="用户表" class="easyui-datagrid" style="width:100%;height:100%"
+           url="/Menu/GetContactsData"
+           toolbar="#toolbar"
+           rownumbers="false" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="Seque" width="50">序号</th>
+                <th field="UserName" width="50">用户名</th>
+                <th field="State" width="50">状态</th>
+                <th field="Sex" width="50">性别</th>
+                <th field="Department" width="50">部门</th>
+                <th field="Branch" width="50">科室</th>
+                <th field="Job" width="50">职位</th>
+                <th field="Birthday" width="50">生日</th>
+                <th field="RegTime" width="50">注册时间</th>
+                <th field="LoginTime" width="50">登录时间</th>
+                <th field="PhoneShort" width="50">手机短号</th>
+                <th field="Phone" width="50">手机长号</th>
+                <th field="EMail" width="50">电子邮箱</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">新增用户</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">编辑用户</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除用户</a>
+    </div>
+
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+         closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">用户信息表</div>
+        <form id="fm" method="post">
+            <div class="fitem">
+                <label>用户名:</label>
+                <input name="UserName" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>密码:</label>
+                <input name="Password" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>Phone:</label>
+                <input name="Phone">
+            </div>
+            <div class="fitem">
+                <label>Email:</label>
+                <input name="EMail" class="easyui-validatebox" validType="email">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+    </div>
+    <script type="text/javascript">
+        function newUser() {
+            $('#dlg').dialog('open').dialog('setTitle', 'New User');
+            $('#fm').form('clear');
+            url = 'save_user.php';
+        }
+        function editUser() {
+            var row = $('#dg').datagrid('getSelected');
+            if (row) {
+                $('#dlg').dialog('open').dialog('setTitle', 'Edit User');
+                $('#fm').form('load', row);
+                url = 'update_user.php?id=' + row.id;
+            }
+        }
+    </script>
+</div>

@@ -152,6 +152,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Database\Database.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -567,10 +568,10 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\MainWindow.cshtml" />
     <Content Include="Views\Menu\WorkWeek.cshtml" />
+    <Content Include="Views\Menu\GetContacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Database\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
