@@ -28,7 +28,34 @@ namespace HslWebApplication2.Controllers
         [HttpPost]
         public ActionResult GetContactsData()
         {
-            return Content(Newtonsoft.Json.Linq.JArray.FromObject(Database.SoftAccount.GetAllList()).ToString());
+            return Json(Database.SoftAccount.GetAllList());
+        }
+
+        [HttpPost]
+        public ActionResult GetContactsTwo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult save_user()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult update_user()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult destroy_user()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetContactsThree()
+        {
+            return View();
         }
 
         #endregion

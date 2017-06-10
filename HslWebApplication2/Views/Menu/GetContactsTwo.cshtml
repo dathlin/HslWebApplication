@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = null;
+    string Id_table = Guid.NewGuid().ToString("N");
+}
+
+
+<div style="width:100%;height:100%;padding:5px">
+    <table id="@Id_table" title="用户表" style="width:100%;height:100%"
+           toolbar="#toolbar" idField="id"
+           rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="Seque" width="50" editor="{type:'validatebox',options:{required:true}}">序号</th>
+                <th field="UserName" width="50" editor="{type:'validatebox',options:{required:true}}">用户名</th>
+                <th field="Password" width="50" editor="{type:'validatebox',options:{required:true}}">密码</th>
+                <th field="State" width="50" editor="{type:'validatebox',options:{required:true}}">状态</th>
+                <th field="Sex" width="50" editor="{type:'validatebox',options:{required:true}}">性别</th>
+                <th field="Department" width="50" editor="text">部门</th>
+                <th field="Branch" width="50" editor="text">科室</th>
+                <th field="Job" width="50" editor="text">职位</th>
+                <th field="Birthday" width="50" editor="text">生日</th>
+                <th field="RegTime" width="50" editor="text">注册时间</th>
+                <th field="LoginTime" width="50" editor="text">登录时间</th>
+                <th field="PhoneShort" width="50" editor="text">手机短号</th>
+                <th field="Phone" width="50" editor="text">手机长号</th>
+                <th field="EMail" width="50" editor="{type:'validatebox',options:{required:true}}">电子邮箱</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#@Id_table').edatagrid('addRow')">新增</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#@Id_table').edatagrid('destroyRow')">删除</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#@Id_table').edatagrid('saveRow')">保存</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#@Id_table').edatagrid('cancelRow')">取消</a>
+    </div>
+
+
+    <script type="text/javascript">
+        $('#@Id_table').datagrid({
+            url: 'Menu/GetContactsData',
+            saveUrl: 'Menu/save_user',
+            updateUrl: 'Menu/update_user',
+            destroyUrl: 'Menu/destroy_user'
+        });
+    </script>
+
+</div>

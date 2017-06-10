@@ -1,0 +1,131 @@
+﻿@{ 
+    Layout = null;
+    string Id_Table = Guid.NewGuid().ToString("N");
+}
+
+<div style="width:100%;height:100%;padding:5px">
+
+    <table id="@Id_Table" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:100%;height:auto"
+           data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				toolbar: '#tb',
+				url: '/Menu/GetContactsData',
+				method: 'post',
+				onClickRow: onClickRow
+			">
+        <thead>
+            <tr>
+                <th data-options="field:'Seque',width:50">序号</th>
+                <th data-options="field:'UserName',width:50">用户名</th>
+                <th field="Password" width="50" editor="{type:'validatebox',options:{required:true}}">密码</th>
+                <th field="State" width="50" editor="{type:'combobox',options:{required:true}}">状态</th>
+                <th data-options="field:'Sex',width:50,
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'Sex',
+								textField:'SexName',
+								method:'post',
+								url:'/Default/GetSexCombobox',
+								required:true
+							}
+						}">性别</th>
+                <th field="Department" width="50" editor="text">部门</th>
+                <th field="Branch" width="50" editor="text">科室</th>
+                <th field="Job" width="50" editor="text">职位</th>
+                <th field="Birthday" width="50" editor="text">生日</th>
+                <th field="RegTime" width="50" editor="text">注册时间</th>
+                <th field="LoginTime" width="50" editor="text">登录时间</th>
+                <th field="PhoneShort" width="50" editor="text">手机短号</th>
+                <th field="Phone" width="50" editor="text">手机长号</th>
+                <th field="EMail" width="50" editor="{type:'validatebox',options:{required:true}}">电子邮箱</th>
+            </tr>
+            @*<tr>
+                <th data-options="field:'itemid',width:80">Item ID</th>
+                <th data-options="field:'productid',width:100,
+						formatter:function(value,row){
+							return row.productname;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'productid',
+								textField:'productname',
+								method:'get',
+								url:'products.json',
+								required:true
+							}
+						}">Product</th>
+                <th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">List Price</th>
+                <th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">Unit Cost</th>
+                <th data-options="field:'attr1',width:250,editor:'textbox'">Attribute</th>
+                <th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'P',off:''}}">Status</th>
+            </tr>*@
+        </thead>
+    </table>
+
+    <div id="tb" style="height:auto">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">移除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">撤回</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">获取编辑中数据</a>
+    </div>
+
+    <script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#@Id_Table').datagrid('validateRow', editIndex)){
+				var ed = $('#@Id_Table').datagrid('getEditor', {index:editIndex,field:'productid'});
+				var productname = $(ed.target).combobox('getText');
+				$('#@Id_Table').datagrid('getRows')[editIndex]['productname'] = productname;
+				$('#@Id_Table').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickRow(index){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#@Id_Table').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					editIndex = index;
+				} else {
+					$('#@Id_Table').datagrid('selectRow', editIndex);
+				}
+			}
+		}
+		function append(){
+			if (endEditing()){
+				$('#@Id_Table').datagrid('appendRow',{status:'P'});
+				editIndex = $('#@Id_Table').datagrid('getRows').length-1;
+				$('#@Id_Table').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#@Id_Table').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		function accept(){
+			if (endEditing()){
+				$('#@Id_Table').datagrid('acceptChanges');
+			}
+		}
+		function reject(){
+			$('#@Id_Table').datagrid('rejectChanges');
+			editIndex = undefined;
+		}
+		function getChanges(){
+			var rows = $('#@Id_Table').datagrid('getChanges');
+			alert(rows.length+' rows are changed!');
+		}
+    </script>
+
+</div>

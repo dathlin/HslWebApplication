@@ -1,10 +1,11 @@
 ﻿@{ 
     Layout = null;
+    string Id_table = Guid.NewGuid().ToString("N");
 }
 
 
 <div style="width:100%;height:100%;padding:5px">
-    <table id="dg" title="用户表" class="easyui-datagrid" style="width:100%;height:100%"
+    <table id="@Id_table" title="用户表" class="easyui-datagrid" style="width:100%;height:100%"
            url="/Menu/GetContactsData"
            toolbar="#toolbar"
            rownumbers="false" fitColumns="true" singleSelect="true">
@@ -45,6 +46,13 @@
                 <input name="Password" class="easyui-validatebox" required="true">
             </div>
             <div class="fitem">
+                <label>性别：</label>
+                <select id="cc" class="easyui-combobox" name="Sex" style="width:200px;">
+                    <option>男</option>
+                    <option>女</option>
+                </select>
+            </div>
+            <div class="fitem">
                 <label>Phone:</label>
                 <input name="Phone">
             </div>
@@ -65,7 +73,7 @@
             url = 'save_user.php';
         }
         function editUser() {
-            var row = $('#dg').datagrid('getSelected');
+            var row = $('#@Id_table').datagrid('getSelected');
             if (row) {
                 $('#dlg').dialog('open').dialog('setTitle', 'Edit User');
                 $('#fm').form('load', row);

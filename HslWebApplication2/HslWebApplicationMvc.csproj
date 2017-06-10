@@ -150,6 +150,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Database\Database.cs" />
@@ -569,10 +570,13 @@
     <Content Include="Views\Home\MainWindow.cshtml" />
     <Content Include="Views\Menu\WorkWeek.cshtml" />
     <Content Include="Views\Menu\GetContacts.cshtml" />
+    <Content Include="Views\Menu\GetContactsTwo.cshtml" />
+    <Content Include="Views\Menu\GetContactsThree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
